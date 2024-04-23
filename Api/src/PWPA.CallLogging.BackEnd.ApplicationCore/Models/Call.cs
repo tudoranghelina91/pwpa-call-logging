@@ -1,6 +1,5 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
-using PWPA.CallLogging.BackEnd.ApplicationCore.GetCalls;
 
 namespace PWPA.CallLogging.BackEnd.ApplicationCore.Models;
 

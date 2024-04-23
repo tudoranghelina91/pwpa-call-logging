@@ -1,6 +1,8 @@
 using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using PWPA.CallLogging.BackEnd.ApplicationCore;
 using PWPA.CallLogging.BackEnd.ApplicationCore.Abstractions.Repositories;
+using PWPA.CallLogging.BackEnd.ApplicationCore.AddCall;
 using PWPA.CallLogging.BackEnd.ApplicationCore.GetCalls;
 using PWPA.CallLogging.BackEnd.Infrastructure;
 using PWPA.CallLogging.BackEnd.Infrastructure.Repositories;
@@ -33,9 +35,10 @@ app.MapGet("/calls", async (IMediator mediator) =>
     return result;
 });
 
-app.MapPost("/calls/add", () =>
+app.MapPost("/calls", async (IMediator mediator, [FromBody] AddCallRequest request) =>
 {
-    throw new NotImplementedException();
+    await mediator.Send(request);
+    return;
 });
 
 app.MapPut("/calls/{callId}", (int callId, object callData) =>
