@@ -1,8 +1,23 @@
-using Microsoft.AspNetCore.Mvc;
+using MediatR;
+using PWPA.CallLogging.BackEnd.ApplicationCore;
+using PWPA.CallLogging.BackEnd.ApplicationCore.Abstractions.Repositories;
+using PWPA.CallLogging.BackEnd.ApplicationCore.GetCalls;
+using PWPA.CallLogging.BackEnd.Infrastructure;
+using PWPA.CallLogging.BackEnd.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services.AddAutoMapper(cfg =>
+    cfg.AddMaps(ApplicationCoreAssemblyReference.Assembly));
+
+builder.Services.Configure<CallsDatabaseSettings>(builder.Configuration.GetSection("CallsDatabaseSettings"));
+
+builder.Services.AddTransient<ICallsRepository, CallsRepository>();
+
+builder.Services.AddMediatR(cfg =>
+    cfg.RegisterServicesFromAssembly(ApplicationCoreAssemblyReference.Assembly));
 
 var app = builder.Build();
 
@@ -10,31 +25,22 @@ var app = builder.Build();
 
 app.UseHttpsRedirection();
 
-app.MapGet("/calls", () =>
+app.MapGet("/calls", async (IMediator mediator) =>
 {
-    return new[]
-    {
-        new
-        {
-            CallId = 1,
-            CallerName = "Test"
-        },
-        new
-        {
-            CallId = 2,
-            CallerName = "Test 2"
-        }
-    };
+    var request = new GetCallsRequest();
+    var result = await mediator.Send(request);
+
+    return result;
 });
 
 app.MapPost("/calls/add", () =>
 {
-    return new OkResult();
+    throw new NotImplementedException();
 });
 
 app.MapPut("/calls/{callId}", (int callId, object callData) =>
 {
-    return new OkObjectResult(callData);
+    throw new NotImplementedException();
 });
 
 app.Run();

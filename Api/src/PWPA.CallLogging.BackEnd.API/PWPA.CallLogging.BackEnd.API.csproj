@@ -6,4 +6,14 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="MediatR" Version="12.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PWPA.CallLogging.BackEnd.ApplicationCore\PWPA.CallLogging.BackEnd.ApplicationCore.csproj" />
+    <ProjectReference Include="..\PWPA.CallLogging.BackEnd.Infrastructure\PWPA.CallLogging.BackEnd.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

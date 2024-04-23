@@ -13,11 +13,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{40F3E585-4DE
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{4D8ABE0C-A766-4ADC-A1C8-940F316C6EE7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PWPA.CallLogging.BackEnd.API.Tests", "test\PWPA.CallLogging.BackEnd.API.Tests\PWPA.CallLogging.BackEnd.API.Tests.csproj", "{96C71F31-259B-488B-AFFA-FCCFBFB4AA78}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PWPA.CallLogging.BackEnd.API.Tests", "test\PWPA.CallLogging.BackEnd.API.Tests\PWPA.CallLogging.BackEnd.API.Tests.csproj", "{96C71F31-259B-488B-AFFA-FCCFBFB4AA78}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PWPA.CallLogging.BackEnd.ApplicationCore.Tests", "test\PWPA.CallLogging.BackEnd.ApplicationCore.Tests\PWPA.CallLogging.BackEnd.ApplicationCore.Tests.csproj", "{59C473A4-7002-4CC1-AEF8-20F450E54107}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PWPA.CallLogging.BackEnd.ApplicationCore.Tests", "test\PWPA.CallLogging.BackEnd.ApplicationCore.Tests\PWPA.CallLogging.BackEnd.ApplicationCore.Tests.csproj", "{59C473A4-7002-4CC1-AEF8-20F450E54107}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PWPA.CallLogging.BackEnd.Infrastructure.Tests", "test\PWPA.CallLogging.BackEnd.Infrastructure.Tests\PWPA.CallLogging.BackEnd.Infrastructure.Tests.csproj", "{2F093193-FB7A-47A0-B2BE-FB205DD01AFF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PWPA.CallLogging.BackEnd.Infrastructure.Tests", "test\PWPA.CallLogging.BackEnd.Infrastructure.Tests\PWPA.CallLogging.BackEnd.Infrastructure.Tests.csproj", "{2F093193-FB7A-47A0-B2BE-FB205DD01AFF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3F6EE7FD-4DCF-4790-AFC7-CC3F9D5DB8D8}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
