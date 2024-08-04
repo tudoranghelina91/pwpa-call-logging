@@ -1,12 +1,18 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
-
+import { ListLoggedCallsComponent } from './list-logged-calls.component';
+import { HttpClientModule } from '@angular/common/http';
+import { NgFor, NgIf } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    ListLoggedCallsComponent
+  ],
   imports: [
-    CommonModule
+    HttpClientModule,
+    NgFor,
+    NgIf,
+    RouterModule
   ]
 })
 export class ListLoggedCallsModule { }

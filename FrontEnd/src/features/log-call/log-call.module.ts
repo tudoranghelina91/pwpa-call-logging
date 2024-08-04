@@ -1,12 +1,19 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
-
+import { LogCallComponent } from './log-call.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { NgIf } from '@angular/common';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    LogCallComponent
+  ],
   imports: [
-    CommonModule
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule,
+    NgIf
   ]
 })
-export class LogCallModule { }
+export class LogCallModule {
+}

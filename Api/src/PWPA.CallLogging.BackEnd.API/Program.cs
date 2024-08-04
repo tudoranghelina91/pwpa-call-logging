@@ -21,12 +21,20 @@ builder.Services.AddTransient<ICallsRepository, CallsRepository>();
 builder.Services.AddMediatR(cfg =>
     cfg.RegisterServicesFromAssembly(ApplicationCoreAssemblyReference.Assembly));
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowedOrigins", policy =>
+    {
+        policy.WithOrigins(["http://localhost:4200", "https://localhost:4200", "http://localhost:8080"]);
+        policy.WithHeaders("Access-Control-Allow-Origin", "content-type");
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-
+app.UseCors("AllowedOrigins");
 app.UseHttpsRedirection();
-
 app.MapGet("/calls", async (IMediator mediator) =>
 {
     var request = new GetCallsRequest();

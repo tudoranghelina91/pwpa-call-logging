@@ -2,7 +2,7 @@ FROM node:alpine
 WORKDIR /usr/src/app
 COPY . /usr/src/app
 RUN npm install -g @angular/cli
-RUN npm install
+RUN npm install --legacy-peer-deps
 RUN ng build -c production
 
 FROM node:alpine

@@ -1,0 +1,26 @@
+.container-grid {
+    display: grid;
+    row-gap: 10px;
+    
+    .title {
+        grid-row: 1;
+    };
+
+    .error {
+        grid-row: 2;
+        grid-column: 0;
+    };
+
+    .form-grid {
+        display: flex;
+        flex-direction: column;
+        row-gap: 10px;
+        grid-row: 3;
+        height: 50px;
+        align-items: normal;
+
+        .button {
+            width: 150px;
+        }
+    }
+}
