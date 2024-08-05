@@ -11,10 +11,10 @@ export class CallLoggerHttpClientService {
   constructor(private client : HttpClient) { }
 
   getLoggedCalls() {
-    return this.client.get<Call[]>('https://pwpa-call-logging-api:8003/calls');
+    return this.client.get<Call[]>('https://localhost:8003/calls');
   }
 
   logCall(call : Call) {
-    return this.client.post<Call>('https://pwpa-call-logging-api:8003/calls', call);
+    return this.client.post<Call>('https://localhost:8003/calls', call);
   }
 }

@@ -25,7 +25,12 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowedOrigins", policy =>
     {
-        policy.WithOrigins(["http://localhost:4200", "https://localhost:4200", "http://localhost:8080"]);
+        policy.WithOrigins([
+            "http://localhost:4200",
+            "https://localhost:4200",
+            "http://localhost:8004",
+            "https://localhost:8004",
+        ]);
         policy.WithHeaders("Access-Control-Allow-Origin", "content-type");
     });
 });
