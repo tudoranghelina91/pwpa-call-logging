@@ -2,17 +2,17 @@
     <h1 class="h1 title">Log a call</h1>
     <form [formGroup]="this.form" (submit)="submitCall()" class="form-grid">
         <div class="form-group">
-            <label for="callerName" ><i class="bi bi-person-fill"></i> Caller Name:</label>
+            <label for="callerName"><fa-icon [icon]="faPhone"></fa-icon> Caller Name:</label>
             <input type="text" class="callerName" required="true" class="form-control" formControlName="callerNameControl" (change)="clearErrors('callerNameControl')">
             <div class="text-danger" *ngIf="!isCallerNameValid">Caller name is required</div>
         </div>
         <div class="form-group">
-            <label for="address"><i class="bi bi-geo-alt-fill"></i> Address:</label>
+            <label for="address"><fa-icon [icon]="faLocationDot"></fa-icon> Address:</label>
             <input type="text" required="true" class="form-control" formControlName="addressControl" (change)="clearErrors('addressControl')">
             <div class="text-danger" *ngIf="!isAddressValid">Address is required</div>
         </div>
         <div class="form-group">
-            <label for="description"><i class="bi bi-chat-left-text-fill"></i> Description: </label>
+            <label for="description"><fa-icon [icon]="faComment"></fa-icon> Description: </label>
             <textarea class="form-control" required="true" formControlName="descriptionControl" multiple="true" rows="3" (change)="clearErrors('descriptionControl')"></textarea>
             <div class="text-danger" *ngIf="!isDescriptionValid">Description is required</div>
         </div>

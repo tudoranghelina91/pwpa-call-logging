@@ -3,6 +3,7 @@ import { LogCallComponent } from './log-call.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgIf } from '@angular/common';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,8 @@ import { NgIf } from '@angular/common';
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-    NgIf
+    NgIf,
+    FontAwesomeModule
   ]
 })
 export class LogCallModule {

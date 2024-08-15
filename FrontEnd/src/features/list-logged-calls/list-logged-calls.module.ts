@@ -3,6 +3,7 @@ import { ListLoggedCallsComponent } from './list-logged-calls.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NgFor, NgIf } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,8 @@ import { RouterModule } from '@angular/router';
     HttpClientModule,
     NgFor,
     NgIf,
-    RouterModule
+    RouterModule,
+    FontAwesomeModule
   ]
 })
 export class ListLoggedCallsModule { }

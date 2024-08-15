@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { CallFormModel } from '../../models/Call';
 import { CallLoggerHttpClientService } from '../../services/call-logger-http-client.service';
 import { Router } from '@angular/router';
+import { faPhone, faLocationDot, faComment } from '@fortawesome/free-solid-svg-icons'
 
 @Component({
   selector: 'app-log-call',
@@ -17,6 +18,10 @@ export class LogCallComponent {
   isDescriptionValid: boolean = true;
   isAddressValid: boolean = true;
   attemptedSubmit: boolean = false;
+
+  faPhone = faPhone;
+  faLocationDot = faLocationDot;
+  faComment = faComment;
 
   constructor(formBuilder : FormBuilder, private http : CallLoggerHttpClientService, private router : Router) {
 

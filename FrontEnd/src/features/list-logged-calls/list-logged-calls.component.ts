@@ -2,6 +2,7 @@ import { AfterViewInit, Component } from '@angular/core';
 import { Call } from '../../models/Call';
 import { CallLoggerHttpClientService } from '../../services/call-logger-http-client.service';
 import { Router } from '@angular/router';
+import { faPhone, faLocationDot, faComment } from '@fortawesome/free-solid-svg-icons'
 
 @Component({
   selector: 'app-list-logged-calls',
@@ -13,6 +14,10 @@ export class ListLoggedCallsComponent implements AfterViewInit {
   constructor(private service : CallLoggerHttpClientService, private router : Router) { }
   public calls : Call[] = [];
   canConnect = true;
+
+  faPhone = faPhone;
+  faLocationDot = faLocationDot;
+  faComment = faComment;
 
   gotoLogCall() {
     this.router.navigateByUrl('calls/log');
