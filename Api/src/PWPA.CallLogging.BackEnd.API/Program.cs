@@ -30,6 +30,10 @@ builder.Services.AddCors(options =>
             "https://localhost:4200",
             "http://localhost:8004",
             "https://localhost:8004",
+            "http://pwpa-call-logging-vm.local:8004",
+            "https://pwpa-call-logging-vm.local:8004",
+            "http://192.168.1.133:8004",
+            "https://192.168.1.133:8004",
         ]);
         policy.WithHeaders("Access-Control-Allow-Origin", "content-type");
     });
