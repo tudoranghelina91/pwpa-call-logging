@@ -10,11 +10,12 @@ export class CallLoggerHttpClientService {
 
   constructor(private client : HttpClient) { }
 
+  // TODO: USE BASE URL BASED ON DOCKER ENVIRONMENT VARIABLES
   getLoggedCalls() {
-    return this.client.get<Call[]>('https://localhost:8003/calls');
+    return this.client.get<Call[]>('https://192.168.1.133:8003/calls');
   }
 
   logCall(call : Call) {
-    return this.client.post<Call>('https://localhost:8003/calls', call);
+    return this.client.post<Call>('https://192.168.1.133:8003/calls', call);
   }
 }
