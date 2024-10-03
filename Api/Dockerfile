@@ -8,7 +8,7 @@ RUN dotnet restore
 # Build
 RUN dotnet build ./src/PWPA.CallLogging.BackEnd.API -c Release -o out --no-restore
 # Unit Tests
-RUN dotnet test --no-restore --no-build
+RUN dotnet test --no-restore
 # Build and publish a release
 RUN dotnet publish ./src/PWPA.CallLogging.BackEnd.API -c Release -o out
 
