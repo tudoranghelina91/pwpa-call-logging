@@ -14,7 +14,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAutoMapper(cfg =>
     cfg.AddMaps(ApplicationCoreAssemblyReference.Assembly));
 
-builder.Services.Configure<CallsDatabaseSettings>(builder.Configuration.GetSection("CallsDatabaseSettings"));
+builder.Services.Configure<CallsDatabaseSettings>(cfg =>
+{
+    cfg.ConnectionString = Environment.GetEnvironmentVariable("CallsDatabaseSettings__ConnectionString");
+    cfg.Database = "pwpa-call-logging-db";
+    cfg.CallsCollectionName = "Calls";
+});
+
+builder.Services.AddLogging();
 
 builder.Services.AddTransient<ICallsRepository, CallsRepository>();
 
