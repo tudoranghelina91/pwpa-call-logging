@@ -16,7 +16,7 @@ builder.Services.AddAutoMapper(cfg =>
 
 builder.Services.Configure<CallsDatabaseSettings>(cfg =>
 {
-    cfg.ConnectionString = Environment.GetEnvironmentVariable("CallsDatabaseSettings__ConnectionString");
+    cfg.ConnectionString = Environment.GetEnvironmentVariable("CallsDatabaseSettings__ConnectionString", EnvironmentVariableTarget.Process);
     cfg.Database = "pwpa-call-logging-db";
     cfg.CallsCollectionName = "Calls";
 });
