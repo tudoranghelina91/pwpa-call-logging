@@ -1,0 +1,20 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    - name: Build BackEnd Docker image
+      run: docker build . --file ./Api/Dockerfile --tag ghcr.io/tudoranghelina91/pwpa-call-logging-pwpa_call_logging_api:latest
+    - name: Push Backend Docker image
+      run: docker push ghcr.io/tudoranghelina91/pwpa-call-logging-pwpa_call_logging_api:latest
