@@ -20,7 +20,7 @@ jobs:
       with:
         registry: ghcr.io
         username: tudoranghelina91
-        password: ${{ secrets.GITHUB_TOKEN }
+        password: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Build Back-End Docker image
       run: docker build ./Api --tag ghcr.io/tudoranghelina91/pwpa-call-logging-pwpa_call_logging_api:latest
