@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using PWPA.CallLogging.BackEnd.ApplicationCore.Abstractions.Repositories;
+using PWPA.CallLogging.BackEnd.ApplicationCore.Models;
 
 namespace PWPA.CallLogging.BackEnd.ApplicationCore.GetCalls;
 
@@ -11,7 +12,7 @@ public class GetCallsHandler(ICallsRepository repository, IMapper mapper) : IReq
 
     public async Task<IEnumerable<GetCallsResponse>> Handle(GetCallsRequest request, CancellationToken cancellationToken)
     {
-        var result = await _repository.GetCallsAsync();
+        List<Call> result = await _repository.GetCallsAsync();
         return _mapper.Map<IEnumerable<GetCallsResponse>>(result);
     }
 }
