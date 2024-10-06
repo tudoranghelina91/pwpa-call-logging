@@ -54,7 +54,7 @@ describe('ListLoggedCallsComponent', () => {
   it('should fetch logged calls when ngOnInit called', () => {
     component.ngOnInit();
     expect(callLoggerServiceSpy.getLoggedCalls).toHaveBeenCalled();
-    expect(component.calls).toEqual(testData)
+    expect(component.calls).toEqual(testData);
   });
 
   it('should set error when ngOnInitCalled and service throws error', () => {

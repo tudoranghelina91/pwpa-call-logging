@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgIf } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { CallLoggerHttpClientService } from '../../services/call-logger-http-client.service';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     RouterModule,
     NgIf,
     FontAwesomeModule
+  ],
+  providers: [
+    CallLoggerHttpClientService
   ]
 })
 export class LogCallModule {
