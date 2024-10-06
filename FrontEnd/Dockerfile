@@ -1,9 +1,11 @@
 FROM node:alpine
 WORKDIR /usr/src/app
 COPY . /usr/src/app
+RUN apk add chromium
+ENV CHROME_BIN=/usr/bin/chromium-browser
 RUN npm install -g @angular/cli
 RUN npm install
-RUN ng test
+RUN ng test --watch=false
 RUN ng build -c production
 
 FROM node:alpine
