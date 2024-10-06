@@ -3,6 +3,7 @@ WORKDIR /usr/src/app
 COPY . /usr/src/app
 RUN npm install -g @angular/cli
 RUN npm install
+RUN ng test
 RUN ng build -c production
 
 FROM node:alpine

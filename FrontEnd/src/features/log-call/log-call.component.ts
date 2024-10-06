@@ -62,7 +62,6 @@ export class LogCallComponent {
       this.form.controls['descriptionControl'].value
     );
 
-
     this.http.logCall(model)
         .subscribe({
           next: x => {
