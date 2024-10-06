@@ -1,4 +1,4 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Call } from '../../models/Call';
 import { CallLoggerHttpClientService } from '../../services/call-logger-http-client.service';
 import { Router } from '@angular/router';
@@ -9,7 +9,7 @@ import { faPhone, faLocationDot, faComment } from '@fortawesome/free-solid-svg-i
   templateUrl: './list-logged-calls.component.html',
   styleUrl: './list-logged-calls.component.scss'
 })
-export class ListLoggedCallsComponent implements AfterViewInit {
+export class ListLoggedCallsComponent implements OnInit {
 
   constructor(private service : CallLoggerHttpClientService, private router : Router) { }
   public calls : Call[] = [];
@@ -23,7 +23,7 @@ export class ListLoggedCallsComponent implements AfterViewInit {
     this.router.navigateByUrl('calls/log');
   }
 
-  ngAfterViewInit(): void {
+  ngOnInit(): void {
     this.service.getLoggedCalls().subscribe({
       next: x => {
         this.calls = x;
