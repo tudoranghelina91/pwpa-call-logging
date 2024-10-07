@@ -16,4 +16,8 @@
     <ProjectReference Include="..\PWPA.CallLogging.BackEnd.Infrastructure\PWPA.CallLogging.BackEnd.Infrastructure.csproj" />
   </ItemGroup>
 
+<ItemGroup>
+    <InternalsVisibleTo Include="PWPA.CallLogging.BackEnd.API.IntegrationTests" />
+</ItemGroup>
+
 </Project>

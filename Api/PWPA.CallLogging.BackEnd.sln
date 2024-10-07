@@ -18,9 +18,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PWPA.CallLogging.BackEnd.ApplicationCore.UnitTests", "test\PWPA.Call.Logging.BackEnd.ApplicationCore.UnitTests\PWPA.CallLogging.BackEnd.ApplicationCore.UnitTests.csproj", "{952AF01F-4D6B-484D-B87E-C77C6512449D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PWPA.CallLogging.BackEnd.ApplicationCore.UnitTests", "test\PWPA.Call.Logging.BackEnd.ApplicationCore.UnitTests\PWPA.CallLogging.BackEnd.ApplicationCore.UnitTests.csproj", "{952AF01F-4D6B-484D-B87E-C77C6512449D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PWPA.CallLogging.BackEnd.Infrastructure.UnitTests", "PWPA.CallLogging.BackEnd.Infrastructure.UnitTests\PWPA.CallLogging.BackEnd.Infrastructure.UnitTests.csproj", "{B35C6286-B6EA-4F1F-9F61-720B2058D8CB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PWPA.CallLogging.BackEnd.Infrastructure.UnitTests", "PWPA.CallLogging.BackEnd.Infrastructure.UnitTests\PWPA.CallLogging.BackEnd.Infrastructure.UnitTests.csproj", "{B35C6286-B6EA-4F1F-9F61-720B2058D8CB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PWPA.CallLogging.BackEnd.API.IntegrationTests", "test\PWPA.CallLogging.BackEnd.API.IntegrationTests\PWPA.CallLogging.BackEnd.API.IntegrationTests.csproj", "{8D6DA9CB-D756-4E7F-9C64-E6BB2867FF12}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,6 +50,10 @@ Global
 		{B35C6286-B6EA-4F1F-9F61-720B2058D8CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B35C6286-B6EA-4F1F-9F61-720B2058D8CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B35C6286-B6EA-4F1F-9F61-720B2058D8CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D6DA9CB-D756-4E7F-9C64-E6BB2867FF12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D6DA9CB-D756-4E7F-9C64-E6BB2867FF12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D6DA9CB-D756-4E7F-9C64-E6BB2867FF12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D6DA9CB-D756-4E7F-9C64-E6BB2867FF12}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -58,6 +64,7 @@ Global
 		{3B4B8976-AA1D-466F-B34A-8BF2B3AD8FC3} = {40F3E585-4DE8-491F-A28C-E075B9B289E6}
 		{952AF01F-4D6B-484D-B87E-C77C6512449D} = {4D8ABE0C-A766-4ADC-A1C8-940F316C6EE7}
 		{B35C6286-B6EA-4F1F-9F61-720B2058D8CB} = {4D8ABE0C-A766-4ADC-A1C8-940F316C6EE7}
+		{8D6DA9CB-D756-4E7F-9C64-E6BB2867FF12} = {4D8ABE0C-A766-4ADC-A1C8-940F316C6EE7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D6A22BF4-90D2-4F41-A35F-AA7064477601}
