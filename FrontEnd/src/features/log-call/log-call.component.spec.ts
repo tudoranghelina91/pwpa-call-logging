@@ -110,7 +110,7 @@ describe('LogCallComponent', () => {
     expect(component.isDescriptionValid).toBeTrue();
   });
 
-  it('should isdescriptionValid be false when descriptionControl is not valid', () => {
+  it('should isDescriptionValid be false when descriptionControl is not valid', () => {
     component.form.controls['descriptionControl'].setValue('');
     component.clearErrors('descriptionControl');
     expect(component.isDescriptionValid).toBeFalse();
