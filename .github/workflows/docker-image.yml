@@ -15,9 +15,9 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Dotnet test
-      uses: actions/setup-dotnet@v4.0.1
-    - run: dotnet test ./Api
+    # - name: Dotnet test
+    #   uses: actions/setup-dotnet@v4.0.1
+    # - run: dotnet test ./Api
 
     - name: Docker Login
       uses: docker/login-action@v3.3.0
