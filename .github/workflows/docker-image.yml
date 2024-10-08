@@ -39,6 +39,8 @@ jobs:
 
     - name: List vars
       run: gh variable list
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Build Back-End Docker image PR
       if: github.event_name == 'pull_request'
