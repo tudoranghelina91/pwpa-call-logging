@@ -37,6 +37,20 @@ jobs:
         username: tudoranghelina91
         password: ${{ secrets.GITHUB_TOKEN }}
 
+    - name: Build Back-End Docker image PR
+      if: github.event_name == 'pull_request'
+      run: docker build ./Api --tag ghcr.io/tudoranghelina91/pwpa-call-logging-pwpa_call_logging_api:pr${{github.event.pull_request.number}}-${{github.run_number}}
+    - name: Push Back-End Docker image PR
+      if: github.event_name == 'pull_request'
+      run: docker push ghcr.io/tudoranghelina91/pwpa-call-logging-pwpa_call_logging_api:pr${{github.event.pull_request.number}}-${{github.run_number}}
+      
+    - name: Build Front-End Docker image PR
+      if: github.event_name == 'pull_request'
+      run: docker build ./FrontEnd --tag ghcr.io/tudoranghelina91/pwpa-call-logging-pwpa_call_logging_frontend:pr${{github.event.pull_request.number}}-${{github.run_number}}
+    - name: Push Front-End Docker image PR
+      if: github.event_name == 'pull_request'
+      run: docker push ghcr.io/tudoranghelina91/pwpa-call-logging-pwpa_call_logging_frontend:pr${{github.event.pull_request.number}}-${{github.run_number}}
+
     - name: Build Back-End Docker image
       run: docker build ./Api --tag ghcr.io/tudoranghelina91/pwpa-call-logging-pwpa_call_logging_api:latest
     - name: Push Back-End Docker image
