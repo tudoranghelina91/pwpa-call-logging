@@ -82,6 +82,7 @@ jobs:
     - name: Build Front-End Docker image
       if: ${{ github.ref_name == 'main' }}
       run: docker build ./FrontEnd --tag ghcr.io/tudoranghelina91/pwpa-call-logging-pwpa_call_logging_frontend:v${{vars.MAJOR_VERSION}}.${{vars.MINOR_VERSION}}.${{vars.PATCH_VERSION}}.${{vars.BUILD_VERSION}} --tag ghcr.io/tudoranghelina91/pwpa-call-logging-pwpa_call_logging_frontend:latest
+
     - name: Push Front-End Docker image LATEST
       if: ${{ github.ref_name == 'main' }}
       run: docker push ghcr.io/tudoranghelina91/pwpa-call-logging-pwpa_call_logging_frontend:latest
