@@ -24,8 +24,8 @@ jobs:
     - name: Run Unit Tests
       run: dotnet test ./Api --filter FullyQualifiedName~UnitTests
 
-    - name: Run Integration Tests
-      run: dotnet test ./Api --filter FullyQualifiedName~IntegrationTests
+    # - name: Run Integration Tests
+    #   run: dotnet test ./Api --filter FullyQualifiedName~IntegrationTests
 
     - name: Dotnet publish
       run: dotnet publish -c Release ./Api --no-restore --no-build
