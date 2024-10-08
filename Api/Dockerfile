@@ -16,5 +16,5 @@
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /usr/app
 # COPY --from=build-env /usr/out .
-COPY ./src/PWPA.CallLogging.Backend.API/bin/Release/net8.0/publish .
+COPY ./src/PWPA.CallLogging.BackEnd.API/bin/Release/net8.0/publish .
 ENTRYPOINT ["dotnet", "PWPA.CallLogging.BackEnd.API.dll"]
