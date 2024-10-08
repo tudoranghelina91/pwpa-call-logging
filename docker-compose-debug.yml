@@ -1,0 +1,74 @@
+services:
+  pwpa_call_logging_db:
+    container_name: pwpa_call_logging_db
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_DATABASE: pwpa-call-logging-db
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASS}
+    volumes:
+      - pwpa_call_logging_db_vol:/data/db
+      - ./Database/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+    networks:
+      - pwpa_call_logging_network
+
+  mongo_express:
+    image: mongo-express
+    container_name: mongo_express
+    depends_on:
+      - pwpa_call_logging_db
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_BASICAUTH_USERNAME: ${MONGO_EXPRESS_USER}
+      ME_CONFIG_BASICAUTH_PASSWORD: ${MONGO_EXPRESS_PASS}
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGO_USER}
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_PASS}
+      ME_CONFIG_MONGODB_SERVER: pwpa_call_logging_db
+    networks:
+      - pwpa_call_logging_network
+
+  pwpa_call_logging_api:
+    container_name: pwpa_call_logging_api
+    depends_on:
+      - pwpa_call_logging_db
+    build: 
+      context: ./Api
+      dockerfile: Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8002
+      - ASPNETCORE_HTTPS_PORTS=8003
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=Secret@123!
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+      - CallsDatabaseSettings__ConnectionString=${CallsDatabaseSettings__ConnectionString}
+    volumes:
+      - ~/.aspnet/https:/https:ro
+    networks:
+      - pwpa_call_logging_network
+    ports: [
+      8003:8003
+    ]
+
+  pwpa_call_logging_frontend:
+    container_name: pwpa_call_logging_frontend
+    depends_on:
+      - pwpa_call_logging_api
+    build:
+      context: ./FrontEnd
+      dockerfile: Dockerfile
+    ports: [
+      8004:8080
+    ]
+    networks:
+      - pwpa_call_logging_network
+
+volumes:
+  pwpa_call_logging_db_vol:
+
+networks:
+  pwpa_call_logging_network:
+    driver: bridge
+    name: pwpa_call_logging_network

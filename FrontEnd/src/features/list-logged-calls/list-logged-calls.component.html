@@ -1,1 +1,29 @@
-<p>list-logged-calls works!</p>
+<div class="container">
+    <h1 class="h1">Logged calls</h1>
+    <table class="table table-hover">
+        <thead>
+            <tr class="info">
+                <th><fa-icon [icon]="faPhone"></fa-icon> Caller</th>
+                <th><fa-icon [icon]="faLocationDot"></fa-icon> Address</th>
+                <th><fa-icon [icon]="faComment"></fa-icon> Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let call of calls">
+                <td>
+                    {{call.callerName}}
+                </td>
+                <td>
+                    {{call.address}}
+                </td>
+                <td>
+                    {{call.description}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <button class="btn btn-primary" (click)="gotoLogCall()">Log a call</button>
+    <div class="alert alert-danger" *ngIf="!canConnect">
+        Unable to connect to server. Please try again later!
+    </div>
+</div>

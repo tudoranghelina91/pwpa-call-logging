@@ -3,13 +3,16 @@ services:
     container_name: pwpa-call-logging-db
     image: mongo
     restart: always
+    ports:
+      - 27017:27017
     environment:
       MONGO_INITDB_DATABASE: pwpa-call-logging-db
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASS}
     volumes:
+      - pwpa-call-logging-db-vol:/data/db
       - ./Database/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
-
+  
   mongo-express:
     image: mongo-express
     container_name: mongo-express
@@ -25,13 +28,5 @@ services:
       ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_PASS}
       ME_CONFIG_MONGODB_SERVER: pwpa-call-logging-db
 
-  pwpa-call-logging-api:
-    container_name: pwpa-call-logging-api
-    depends_on:
-      - pwpa-call-logging-db
-    build: 
-      context: ./Api
-      dockerfile: Dockerfile
-    ports: [
-      9998:8080
-    ]
+volumes:
+  pwpa-call-logging-db-vol:

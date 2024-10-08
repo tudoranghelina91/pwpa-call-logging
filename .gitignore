@@ -442,3 +442,6 @@ Thumbs.db
 
 # Appsettings
 appsettings.Development.json
+
+# Verify
+*.received.txt

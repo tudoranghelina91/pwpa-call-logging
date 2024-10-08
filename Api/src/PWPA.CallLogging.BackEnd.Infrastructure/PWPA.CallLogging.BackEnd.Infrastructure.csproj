@@ -6,4 +6,13 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Options" Version="8.0.2" />
+    <PackageReference Include="MongoDB.Driver" Version="2.29.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PWPA.CallLogging.BackEnd.ApplicationCore\PWPA.CallLogging.BackEnd.ApplicationCore.csproj" />
+  </ItemGroup>
+
 </Project>

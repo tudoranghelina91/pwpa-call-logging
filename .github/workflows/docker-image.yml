@@ -1,0 +1,48 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Dotnet Restore
+      run: dotnet restore ./Api
+
+    - name: Dotnet Build
+      run: dotnet build ./Api -c Release --no-restore
+      
+    - name: Run Unit Tests
+      run: dotnet test ./Api --filter FullyQualifiedName~UnitTests
+
+    - name: Run Integration Tests
+      run: dotnet test ./Api --filter FullyQualifiedName~IntegrationTests
+
+    - name: Dotnet publish
+      run: dotnet publish -c Release ./Api --no-restore --no-build
+
+    - name: Docker Login
+      uses: docker/login-action@v3.3.0
+      with:
+        registry: ghcr.io
+        username: tudoranghelina91
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Build Back-End Docker image
+      run: docker build ./Api --tag ghcr.io/tudoranghelina91/pwpa-call-logging-pwpa_call_logging_api:latest
+    - name: Push Back-End Docker image
+      run: docker push ghcr.io/tudoranghelina91/pwpa-call-logging-pwpa_call_logging_api:latest
+      
+    - name: Build Front-End Docker image
+      run: docker build ./FrontEnd --tag ghcr.io/tudoranghelina91/pwpa-call-logging-pwpa_call_logging_frontend:latest
+    - name: Push Front-End Docker image
+      run: docker push ghcr.io/tudoranghelina91/pwpa-call-logging-pwpa_call_logging_frontend:latest
