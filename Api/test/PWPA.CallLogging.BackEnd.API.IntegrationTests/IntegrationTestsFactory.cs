@@ -70,7 +70,7 @@ public class IntegrationTestsFactory : WebApplicationFactory<Program>, IAsyncLif
         return;
     }
 
-    public Task DisposeAsync()
+    Task IAsyncLifetime.DisposeAsync()
     {
         return _container.StopAsync();
     }
