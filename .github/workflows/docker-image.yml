@@ -45,9 +45,13 @@ jobs:
     - name: Increment Build Version
       if: ${{ github.ref_name == 'main' }}
       run: gh variable set BUILD_VERSION --body ${{ vars.BUILD_VERSION }} + 1
+      env:
+        GH_TOKEN: ${{ secrets.PWPA_REPO_ADMIN_TOKEN }}
 
     - name: Increment Patch Version
       run: gh variable set PATCH_VERSION --body ${{ vars.PATCH_VERSION }} + 1
+      env:
+        GH_TOKEN: ${{ secrets.PWPA_REPO_ADMIN_TOKEN }}
 
     - name: Build Back-End Docker image PR
       if: github.event_name == 'pull_request'
