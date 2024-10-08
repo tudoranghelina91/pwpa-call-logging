@@ -42,15 +42,17 @@ jobs:
       env:
         GH_TOKEN: ${{ secrets.PWPA_REPO_ADMIN_TOKEN }}
 
-    - name: Increment Build Version
+    - name: Increment Patch Version
       if: ${{ github.ref_name == 'main' }}
-      run: gh variable set BUILD_VERSION --body ${{ vars.BUILD_VERSION }} + 1
+      run: gh variable set PATCH_VERSION --body "$((++CURRENT_PATCH_VERSION))"
       env:
+        CURRENT_PATCH_VERSION: ${{ vars.PATCH_VERSION }}
         GH_TOKEN: ${{ secrets.PWPA_REPO_ADMIN_TOKEN }}
 
-    - name: Increment Patch Version
-      run: gh variable set PATCH_VERSION --body ${{ vars.PATCH_VERSION }} + 1
+    - name: Increment Build Version
+      run: gh variable set BUILD_VERSION --body "$((++CURRENT_BUILD_VERSION))"
       env:
+        CURRENT_BUILD_VERSION: ${{ vars.BUILD_VERSION }}
         GH_TOKEN: ${{ secrets.PWPA_REPO_ADMIN_TOKEN }}
 
     - name: Build Back-End Docker image PR
