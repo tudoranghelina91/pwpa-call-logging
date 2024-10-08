@@ -42,19 +42,26 @@ jobs:
       env:
         GH_TOKEN: ${{ secrets.PWPA_REPO_ADMIN_TOKEN }}
 
+    - name: Increment Build Version
+      if: ${{ github.ref_name == 'main' }}
+      run: gh variable set BUILD_VERSION --body ${{ vars.BUILD_VERSION }} + 1
+
+    - name: Increment Patch Version
+      run: gh variable set PATCH_VERSION --body ${{ vars.PATCH_VERSION }} + 1
+
     - name: Build Back-End Docker image PR
       if: github.event_name == 'pull_request'
-      run: docker build ./Api --tag ghcr.io/tudoranghelina91/pwpa-call-logging-pwpa_call_logging_api:pr${{github.event.pull_request.number}}-${{github.run_number}}
+      run: docker build ./Api --tag ghcr.io/tudoranghelina91/pwpa-call-logging-pwpa_call_logging_api:pr${{github.event.pull_request.number}}-${{vars.BUILD_VERSION}}
     - name: Push Back-End Docker image PR
       if: github.event_name == 'pull_request'
-      run: docker push ghcr.io/tudoranghelina91/pwpa-call-logging-pwpa_call_logging_api:pr${{github.event.pull_request.number}}-${{github.run_number}}
+      run: docker push ghcr.io/tudoranghelina91/pwpa-call-logging-pwpa_call_logging_api:pr${{github.event.pull_request.number}}-${{vars.BUILD_VERSION}}
       
     - name: Build Front-End Docker image PR
       if: github.event_name == 'pull_request'
-      run: docker build ./FrontEnd --tag ghcr.io/tudoranghelina91/pwpa-call-logging-pwpa_call_logging_frontend:pr${{github.event.pull_request.number}}-${{github.run_number}}
+      run: docker build ./FrontEnd --tag ghcr.io/tudoranghelina91/pwpa-call-logging-pwpa_call_logging_frontend:pr${{github.event.pull_request.number}}-${{vars.BUILD_VERSION}}
     - name: Push Front-End Docker image PR
       if: github.event_name == 'pull_request'
-      run: docker push ghcr.io/tudoranghelina91/pwpa-call-logging-pwpa_call_logging_frontend:pr${{github.event.pull_request.number}}-${{github.run_number}}
+      run: docker push ghcr.io/tudoranghelina91/pwpa-call-logging-pwpa_call_logging_frontend:pr${{github.event.pull_request.number}}-${{vars.BUILD_VERSION}}
 
     - name: Build Back-End Docker image
       if: ${{ github.ref_name == 'main' }}
