@@ -29,7 +29,7 @@ jobs:
 
     - name: Dotnet publish
       run: dotnet publish -c Release ./Api --no-restore --no-build
-
+      
     - name: Docker Login
       uses: docker/login-action@v3.3.0
       with:
@@ -37,12 +37,48 @@ jobs:
         username: tudoranghelina91
         password: ${{ secrets.GITHUB_TOKEN }}
 
+    - name: List vars
+      run: gh variable list
+      env:
+        GH_TOKEN: ${{ secrets.PWPA_REPO_ADMIN_TOKEN }}
+
+    - name: Increment Patch Version
+      if: ${{ github.ref_name == 'main' }}
+      run: gh variable set PATCH_VERSION --body "$((++CURRENT_PATCH_VERSION))"
+      env:
+        CURRENT_PATCH_VERSION: ${{ vars.PATCH_VERSION }}
+        GH_TOKEN: ${{ secrets.PWPA_REPO_ADMIN_TOKEN }}
+
+    - name: Increment Build Version
+      run: gh variable set BUILD_VERSION --body "$((++CURRENT_BUILD_VERSION))"
+      env:
+        CURRENT_BUILD_VERSION: ${{ vars.BUILD_VERSION }}
+        GH_TOKEN: ${{ secrets.PWPA_REPO_ADMIN_TOKEN }}
+
+    - name: Build Back-End Docker image PR
+      if: github.event_name == 'pull_request'
+      run: docker build ./Api --tag ghcr.io/tudoranghelina91/pwpa-call-logging-pwpa_call_logging_api:pr${{github.event.pull_request.number}}-${{vars.BUILD_VERSION}}
+    - name: Push Back-End Docker image PR
+      if: github.event_name == 'pull_request'
+      run: docker push ghcr.io/tudoranghelina91/pwpa-call-logging-pwpa_call_logging_api:pr${{github.event.pull_request.number}}-${{vars.BUILD_VERSION}}
+      
+    - name: Build Front-End Docker image PR
+      if: github.event_name == 'pull_request'
+      run: docker build ./FrontEnd --tag ghcr.io/tudoranghelina91/pwpa-call-logging-pwpa_call_logging_frontend:pr${{github.event.pull_request.number}}-${{vars.BUILD_VERSION}}
+    - name: Push Front-End Docker image PR
+      if: github.event_name == 'pull_request'
+      run: docker push ghcr.io/tudoranghelina91/pwpa-call-logging-pwpa_call_logging_frontend:pr${{github.event.pull_request.number}}-${{vars.BUILD_VERSION}}
+
     - name: Build Back-End Docker image
-      run: docker build ./Api --tag ghcr.io/tudoranghelina91/pwpa-call-logging-pwpa_call_logging_api:latest
+      if: ${{ github.ref_name == 'main' }}
+      run: docker build ./Api --tag ghcr.io/tudoranghelina91/pwpa-call-logging-pwpa_call_logging_api:v${{vars.MAJOR_VERSION}}.${{vars.MINOR_VERSION}}.${{vars.PATCH_VERSION}}.${{vars.BUILD_VERSION}} --tag ghcr.io/tudoranghelina91/pwpa-call-logging-pwpa_call_logging_api:latest
     - name: Push Back-End Docker image
+      if: ${{ github.ref_name == 'main' }}
       run: docker push ghcr.io/tudoranghelina91/pwpa-call-logging-pwpa_call_logging_api:latest
       
     - name: Build Front-End Docker image
-      run: docker build ./FrontEnd --tag ghcr.io/tudoranghelina91/pwpa-call-logging-pwpa_call_logging_frontend:latest
+      if: ${{ github.ref_name == 'main' }}
+      run: docker build ./FrontEnd --tag ghcr.io/tudoranghelina91/pwpa-call-logging-pwpa_call_logging_frontend:v${{vars.MAJOR_VERSION}}.${{vars.MINOR_VERSION}}.${{vars.PATCH_VERSION}}.${{vars.BUILD_VERSION}} --tag ghcr.io/tudoranghelina91/pwpa-call-logging-pwpa_call_logging_frontend:latest
     - name: Push Front-End Docker image
+      if: ${{ github.ref_name == 'main' }}
       run: docker push ghcr.io/tudoranghelina91/pwpa-call-logging-pwpa_call_logging_frontend:latest
