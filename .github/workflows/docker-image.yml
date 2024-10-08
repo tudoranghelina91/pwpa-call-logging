@@ -37,6 +37,9 @@ jobs:
         username: tudoranghelina91
         password: ${{ secrets.GITHUB_TOKEN }}
 
+    - name: List vars
+      run: gh variable list
+
     - name: Build Back-End Docker image PR
       if: github.event_name == 'pull_request'
       run: docker build ./Api --tag ghcr.io/tudoranghelina91/pwpa-call-logging-pwpa_call_logging_api:pr${{github.event.pull_request.number}}-${{github.run_number}}
