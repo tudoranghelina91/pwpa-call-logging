@@ -24,8 +24,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\PWPA.CallLogging.BackEnd.ApplicationCore\PWPA.CallLogging.BackEnd.ApplicationCore.csproj" />
-    <ProjectReference Include="..\src\PWPA.CallLogging.BackEnd.Infrastructure\PWPA.CallLogging.BackEnd.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\PWPA.CallLogging.BackEnd.ApplicationCore\PWPA.CallLogging.BackEnd.ApplicationCore.csproj" />
+    <ProjectReference Include="..\..\src\PWPA.CallLogging.BackEnd.Infrastructure\PWPA.CallLogging.BackEnd.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
