@@ -10,7 +10,7 @@ namespace PWPA.CallLogging.BackEnd.API.IntegrationTests;
 
 public class IntegrationTestsFactory : WebApplicationFactory<Program>, IAsyncLifetime
 {
-    private const string ConnectionString = "mongodb://root:password@host.docker.internal:27017";
+    private const string ConnectionString = "mongodb://root:password@localhost:27017";
 
     private readonly MongoDbContainer _container = new MongoDbBuilder()
         .WithName("pwpa_call_logging_db")
