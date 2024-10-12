@@ -2,6 +2,7 @@ using MassTransit;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using PWPA.CallLogging.BackEnd.ApplicationCore;
+using PWPA.CallLogging.BackEnd.ApplicationCore.Abstractions;
 using PWPA.CallLogging.BackEnd.ApplicationCore.Abstractions.Repositories;
 using PWPA.CallLogging.BackEnd.ApplicationCore.AddCall;
 using PWPA.CallLogging.BackEnd.ApplicationCore.GetCalls;
@@ -64,6 +65,8 @@ public partial class Program
                 cfg.ConfigureEndpoints(ctx);
             });
         });
+
+        builder.Services.AddTransient<IMessageProducer<AddCallRequest>, AddCallProducer>();
 
         builder.Services.AddCors(options =>
         {
