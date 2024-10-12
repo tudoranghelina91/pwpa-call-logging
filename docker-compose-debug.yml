@@ -11,7 +11,7 @@ services:
       - pwpa_call_logging_db_vol:/data/db
       - ./Database/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
     networks:
-      - pwpa_call_logging_network
+      - pwpa_network
 
   mongo_express:
     image: mongo-express
@@ -28,7 +28,7 @@ services:
       ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_PASS}
       ME_CONFIG_MONGODB_SERVER: pwpa_call_logging_db
     networks:
-      - pwpa_call_logging_network
+      - pwpa_network
 
   pwpa_call_logging_api:
     container_name: pwpa_call_logging_api
@@ -47,7 +47,7 @@ services:
     volumes:
       - ~/.aspnet/https:/https:ro
     networks:
-      - pwpa_call_logging_network
+      - pwpa_network
     ports: [
       8003:8003
     ]
@@ -63,12 +63,12 @@ services:
       8004:8080
     ]
     networks:
-      - pwpa_call_logging_network
+      - pwpa_network
 
 volumes:
   pwpa_call_logging_db_vol:
 
 networks:
-  pwpa_call_logging_network:
+  pwpa_network:
     driver: bridge
-    name: pwpa_call_logging_network
+    name: pwpa_network
