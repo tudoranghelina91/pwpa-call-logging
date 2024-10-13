@@ -1,7 +1,6 @@
 ﻿using MassTransit;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using PWPA.CallLogging.BackEnd.ApplicationCore.AddCall;
@@ -16,46 +15,14 @@ public class IntegrationTestsFactory : WebApplicationFactory<Program>, IAsyncLif
 {
     private const string ConnectionString = "mongodb://root:password@localhost:27017";
 
-    //    builder.Services.AddMassTransit(x =>
-    //        {
-    //            x.UsingRabbitMq((ctx, cfg) =>
-    //            {
-    //                string? host = Environment.GetEnvironmentVariable("RabbitMQ__Host");
-    //    ushort port = (ushort)Convert.ToInt32(Environment.GetEnvironmentVariable("RabbitMQ__Port"));
-    //    string? user = Environment.GetEnvironmentVariable("RabbitMQ__User");
-    //    string? pass = Environment.GetEnvironmentVariable("RabbitMQ__Password");
-
-    //                if (host is null || user is null || port == 0 || pass is null)
-    //                {
-    //                    throw new ConfigurationException("RabbitMQ");
-    //}
-
-    //cfg.Host(host, port, "/", h =>
-    //                {
-    //                    h.Username(user);
-    //                    h.Password(pass);
-    //                });
-
-    //cfg.ExchangeType = "direct";
-
-    //cfg.Publish<AddCallRequest>(x =>
-    //{
-    //    x.Exclude = true;
-    //    x.ExchangeType = "direct";
-    //});
-
-    //cfg.ConfigureEndpoints(ctx);
-    //            });
-    //        });
-
-    private readonly MongoDbContainer _container = new MongoDbBuilder()
+    private readonly MongoDbContainer _mongoDB = new MongoDbBuilder()
             .WithName("pwpa_call_logging_db")
             .WithUsername("root")
             .WithPassword("password")
             .WithPortBinding(27017, 27017)
             .Build();
 
-    private readonly RabbitMqContainer _rabbitMq = new RabbitMqBuilder()
+    private readonly RabbitMqContainer _rabbitMQ = new RabbitMqBuilder()
         .WithName("pwpa_message_bus")
         .WithUsername("root")
         .WithPassword("password")
@@ -131,8 +98,8 @@ public class IntegrationTestsFactory : WebApplicationFactory<Program>, IAsyncLif
 
     public async Task InitializeAsync()
     {
-        await _container.StartAsync();
-        await _rabbitMq.StartAsync();
+        await _mongoDB.StartAsync();
+        await _rabbitMQ.StartAsync();
         await Seed();
 
         return;
@@ -140,6 +107,12 @@ public class IntegrationTestsFactory : WebApplicationFactory<Program>, IAsyncLif
 
     Task IAsyncLifetime.DisposeAsync()
     {
-        return _container.StopAsync();
+        Task[] tasks =
+        {
+            _rabbitMQ.StopAsync(),
+            _mongoDB.StopAsync()
+        };
+
+        return Task.WhenAll(tasks);
     }
 }
