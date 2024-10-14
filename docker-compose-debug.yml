@@ -30,10 +30,26 @@ services:
     networks:
       - pwpa_network
 
+  pwpa_message_bus:
+    container_name: pwpa_message_bus
+    image: rabbitmq:management
+    hostname: 'pwpamessagebus'
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBIT_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBIT_PASS}
+    ports:
+      - 8005:15672
+      - 8006:5672
+    volumes:
+      - pwpa_message_bus_vol:/var/lib/rabbitmq
+    networks:
+      - pwpa_network
+
   pwpa_call_logging_api:
     container_name: pwpa_call_logging_api
     depends_on:
       - pwpa_call_logging_db
+      - pwpa_message_bus 
     build: 
       context: ./Api
       dockerfile: Dockerfile
@@ -67,6 +83,7 @@ services:
 
 volumes:
   pwpa_call_logging_db_vol:
+  pwpa_message_bus_vol:
 
 networks:
   pwpa_network:
