@@ -1,6 +1,8 @@
+using MassTransit;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using PWPA.CallLogging.BackEnd.ApplicationCore;
+using PWPA.CallLogging.BackEnd.ApplicationCore.Abstractions;
 using PWPA.CallLogging.BackEnd.ApplicationCore.Abstractions.Repositories;
 using PWPA.CallLogging.BackEnd.ApplicationCore.AddCall;
 using PWPA.CallLogging.BackEnd.ApplicationCore.GetCalls;
@@ -31,6 +33,40 @@ public partial class Program
 
         builder.Services.AddMediatR(cfg =>
             cfg.RegisterServicesFromAssembly(ApplicationCoreAssemblyReference.Assembly));
+
+        builder.Services.AddMassTransit(x =>
+        {
+            x.UsingRabbitMq((ctx, cfg) =>
+            {
+                string? host = Environment.GetEnvironmentVariable("RabbitMQ__Host");
+                ushort port = (ushort)Convert.ToInt32(Environment.GetEnvironmentVariable("RabbitMQ__Port"));
+                string? user = Environment.GetEnvironmentVariable("RabbitMQ__User");
+                string? pass = Environment.GetEnvironmentVariable("RabbitMQ__Password");
+
+                if (host is null || user is null || port == 0 || pass is null)
+                {
+                    throw new ConfigurationException("RabbitMQ");
+                }
+
+                cfg.Host(host, port, "/", h =>
+                {
+                    h.Username(user);
+                    h.Password(pass);
+                });
+
+                cfg.ExchangeType = "direct";
+
+                cfg.Publish<AddCallRequest>(x =>
+                {
+                    x.Exclude = true;
+                    x.ExchangeType = "direct";
+                });
+
+                cfg.ConfigureEndpoints(ctx);
+            });
+        });
+
+        builder.Services.AddTransient<IMessageProducer<AddCallRequest>, AddCallProducer>();
 
         builder.Services.AddCors(options =>
         {

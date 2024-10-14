@@ -1,3 +1,5 @@
+using FluentAssertions;
+using MassTransit.Testing;
 using PWPA.CallLogging.BackEnd.ApplicationCore.AddCall;
 using PWPA.CallLogging.BackEnd.ApplicationCore.GetCalls;
 
@@ -18,7 +20,7 @@ public class BasicTests : IntegrationTestsBase
     {
         var client = _factory.CreateClient();
         var response = await client.GetFromJsonAsync<IEnumerable<GetCallsResponse>>(url);
-        await Verify(response);
+        await Verify(response, DatabaseVerifyWriteSettings);
     }
 
     [Theory]
@@ -34,6 +36,8 @@ public class BasicTests : IntegrationTestsBase
         ));
 
         var response = await client.GetFromJsonAsync<IEnumerable<GetCallsResponse>>(url);
-        await Verify(response);
+        var message = Harness.Sent.Select<AddCallRequest>(x => x.Context.Message.CallerName == nameof(AddCallRequest.CallerName) + 3).First();
+        await Verify(response, DatabaseVerifyWriteSettings);
+        await Verify(message.MessageObject, RabbitMQVerifySettings);
     }
 }

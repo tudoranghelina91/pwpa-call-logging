@@ -1,4 +1,5 @@
-﻿using PWPA.CallLogging.BackEnd.ApplicationCore.Abstractions.Repositories;
+﻿using PWPA.CallLogging.BackEnd.ApplicationCore.Abstractions;
+using PWPA.CallLogging.BackEnd.ApplicationCore.Abstractions.Repositories;
 using PWPA.CallLogging.BackEnd.ApplicationCore.AddCall;
 
 namespace PWPA.CallLogging.BackEnd.ApplicationCore.UnitTests.AddCall;
@@ -6,11 +7,13 @@ namespace PWPA.CallLogging.BackEnd.ApplicationCore.UnitTests.AddCall;
 public class AddCallHandlerTests
 {
     private Mock<ICallsRepository> _repository = new();
+
+    private Mock<IMessageProducer<AddCallRequest>> _sender = new();
     private AddCallHandler _sut;
 
     public AddCallHandlerTests()
     {
-        _sut = new AddCallHandler(_repository.Object);
+        _sut = new AddCallHandler(_repository.Object, _sender.Object);
     }
 
     [Fact]
@@ -20,5 +23,6 @@ public class AddCallHandlerTests
         await _sut.Handle(request, CancellationToken.None);
 
         _repository.Verify(r => r.AddCallAsync("Test", "Test", "Test"), Times.Once);
+        _sender.Verify(s => s.Send(request), Times.Once);
     }
 }
