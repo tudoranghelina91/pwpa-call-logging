@@ -445,3 +445,5 @@ appsettings.Development.json
 
 # Verify
 *.received.txt
+/Package Registry.txt
+/FrontEnd/__azurite_db_table__.json
