@@ -33,7 +33,7 @@ services:
   pwpa_message_bus:
     container_name: pwpa_message_bus
     image: rabbitmq:management
-    hostname: 'pwpamessagebus'
+    hostname: 'pwpa_message_bus'
     environment:
       RABBITMQ_DEFAULT_USER: ${RABBIT_USER}
       RABBITMQ_DEFAULT_PASS: ${RABBIT_PASS}
@@ -60,6 +60,10 @@ services:
       - ASPNETCORE_Kestrel__Certificates__Default__Password=Secret@123!
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
       - CallsDatabaseSettings__ConnectionString=${CallsDatabaseSettings__ConnectionString}
+      - RabbitMQ__Host=${RabbitMQ__Host}
+      - RabbitMQ__Port=${RabbitMQ__Port}
+      - RabbitMQ__User=${RabbitMQ__User}
+      - RabbitMQ__Password=${RabbitMQ__Password}
     volumes:
       - ~/.aspnet/https:/https:ro
     networks:
@@ -75,6 +79,8 @@ services:
     build:
       context: ./FrontEnd
       dockerfile: Dockerfile
+      args:
+        configuration: debug
     ports: [
       8004:8080
     ]
