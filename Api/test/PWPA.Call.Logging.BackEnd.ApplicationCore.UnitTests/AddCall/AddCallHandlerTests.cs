@@ -23,6 +23,6 @@ public class AddCallHandlerTests
         await _sut.Handle(request, CancellationToken.None);
 
         _repository.Verify(r => r.AddCallAsync("Test", "Test", "Test"), Times.Once);
-        _sender.Verify(s => s.Send(request), Times.Once);
+        _sender.Verify(s => s.SendAsync(request), Times.Once);
     }
 }

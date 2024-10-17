@@ -11,6 +11,6 @@ public class AddCallHandler(ICallsRepository repository, IMessageProducer<AddCal
     public async Task Handle(AddCallRequest request, CancellationToken cancellationToken)
     {
         await _repository.AddCallAsync(request.CallerName, request.Address, request.Description);
-        await sender.Send(request);
+        sender.SendAsync(request);
     }
 }
