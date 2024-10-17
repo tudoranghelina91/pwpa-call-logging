@@ -2,5 +2,5 @@
 
 public interface IMessageProducer<T>
 {
-    Task Send(T message);
+    Task SendAsync(T message);
 }

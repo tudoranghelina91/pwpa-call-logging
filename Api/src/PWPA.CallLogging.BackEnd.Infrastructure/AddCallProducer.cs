@@ -8,7 +8,7 @@ public class AddCallProducer(ISendEndpointProvider provider) : IMessageProducer<
 {
     private readonly Uri Queue = new("queue:logged_calls_queue");
 
-    public async Task Send(AddCallRequest message)
+    public async Task SendAsync(AddCallRequest message)
     {
         ISendEndpoint endpoint = await provider.GetSendEndpoint(Queue);
         await endpoint.Send(message);
