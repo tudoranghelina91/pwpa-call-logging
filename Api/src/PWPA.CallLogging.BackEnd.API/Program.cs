@@ -8,6 +8,7 @@ using PWPA.CallLogging.BackEnd.ApplicationCore.AddCall;
 using PWPA.CallLogging.BackEnd.ApplicationCore.GetCalls;
 using PWPA.CallLogging.BackEnd.Infrastructure;
 using PWPA.CallLogging.BackEnd.Infrastructure.Repositories;
+using Serilog;
 
 public partial class Program
 {
@@ -54,14 +55,6 @@ public partial class Program
                     h.Password(pass);
                 });
 
-                cfg.ExchangeType = "direct";
-
-                cfg.Publish<AddCallRequest>(x =>
-                {
-                    x.Exclude = true;
-                    x.ExchangeType = "direct";
-                });
-
                 cfg.ConfigureEndpoints(ctx);
             });
         });
@@ -84,6 +77,12 @@ public partial class Program
                 ]);
                 policy.WithHeaders("Access-Control-Allow-Origin", "content-type");
             });
+        });
+
+        builder.Services.AddSerilog(cfg =>
+        {
+            cfg.WriteTo.Console();
+            cfg.WriteTo.Console(Serilog.Events.LogEventLevel.Verbose);
         });
 
         var app = builder.Build();
