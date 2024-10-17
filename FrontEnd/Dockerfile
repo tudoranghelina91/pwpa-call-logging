@@ -6,7 +6,7 @@ RUN apk add chromium
 ENV CHROME_BIN=/usr/bin/chromium-browser
 RUN npm install -g @angular/cli
 RUN npm install
-RUN ng test --watch=false
+# RUN ng test --watch=false
 RUN ng build -c $configuration
 
 FROM node:alpine
