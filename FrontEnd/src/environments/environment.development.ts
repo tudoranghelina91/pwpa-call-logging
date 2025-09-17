@@ -1,3 +1,3 @@
 export const environment = {
-    PWPA_CALL_LOGGING_API_BASE_URL: "https://pwpa-call-logging-vm.local:8003"
+    PWPA_CALL_LOGGING_API_BASE_URL: "https://192.168.1.135:8003"
 };
